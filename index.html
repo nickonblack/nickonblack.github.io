@@ -58,7 +58,12 @@ html, body {
   padding: 0 0 0 52px; /* offset past gutter */
   gap: 0;
   user-select: none;
+  overflow-x: auto;
+  overflow-y: hidden;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
 }
+.tabbar::-webkit-scrollbar { display: none; }
 
 .tab {
   height: 38px;
@@ -72,6 +77,7 @@ html, body {
   cursor: pointer;
   transition: color 0.15s, background 0.15s;
   white-space: nowrap;
+  flex-shrink: 0;
 }
 
 .tab.active {
@@ -231,12 +237,24 @@ html, body {
   color: rgba(255,255,255,0.9);
   z-index: 200;
   letter-spacing: 0.03em;
+  white-space: nowrap;
+  overflow-x: auto;
+  overflow-y: hidden;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+.statusbar::-webkit-scrollbar { display: none; }
+.statusbar > span,
+.statusbar-right > span {
+  white-space: nowrap;
+  flex-shrink: 0;
 }
 .statusbar-right {
   margin-left: auto;
   display: flex;
   gap: 1.5rem;
   opacity: 0.85;
+  flex-shrink: 0;
 }
 
 /* ══════════════════════════════════════════
@@ -263,6 +281,15 @@ html, body {
   .code-content { padding: 1.2rem 1rem 5rem 1rem; font-size: 13px; }
   .tab { font-size: 11px; padding: 0 0.7rem; }
   html { font-size: 13px; }
+  .statusbar {
+    height: calc(24px + env(safe-area-inset-bottom));
+    padding: 0 max(0.6rem, env(safe-area-inset-right)) env(safe-area-inset-bottom) calc(40px + max(0.6rem, env(safe-area-inset-left)));
+    gap: 0.75rem;
+    font-size: 10px;
+  }
+  .statusbar-right { gap: 0.75rem; }
+  .statusbar > span:nth-child(3) { display: none; } /* hide Angular version on narrow screens */
+  .statusbar-right > span:last-child { display: none; } /* hide email on narrow screens */
 }
 </style>
 </head>
